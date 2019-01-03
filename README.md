@@ -1,2 +1,63 @@
 # grid.scss
 Customizable grid using preprocessor SCSS
+
+// Colors
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+$color-white: #fff;
+$color-grey-dark: #777;
+$color-black: #000;
+
+// Grid
+$grid-width: 114rem;
+$grid-gutter-horizontal: 6rem;
+$grid-gutter-vertical: 8rem;
+
+@mixin clearfix {
+    &::after {
+        content: "";
+        clear: both;
+        display: table; } }
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; }
+
+// 1rem = 10px; 62.5% of 16px;
+
+html { font-size: 62.5%; }
+
+body { box-sizing: border-box; }
+
+.row {
+    max-width: $grid-width;
+    background-color: #eee;
+    margin: 0 auto;
+    // the not pseudo class selects everything but the last-child
+    &:not(:last-child) {
+        margin-bottom: $grid-gutter-vertical;
+    }
+    @include clearfix;
+    // selects all classes that starts with col-
+    [class^="col-"] {
+        background-color: $color-primary-light;
+        float: left;
+        &:not(:last-child) {
+            margin-right: $grid-gutter-horizontal; }
+    }
+    .col-1-of-2 {
+        width: calc((100% - #{$grid-gutter-horizontal}) / 2); }  
+    .col-1-of-3 {
+        width: calc((100% - 2 * #{$grid-gutter-horizontal}) / 3); }
+    .col-2-of-3 {
+        width: calc(2 * ((100% - 2 * #{$grid-gutter-horizontal}) / 3) + #{$grid-gutter-horizontal}); }
+    .col-1-of-4 {
+        width: calc((100% - 3 * #{$grid-gutter-horizontal}) / 4); }
+    .col-2-of-4 {
+        width: calc(2 * ((100% - 3 * #{$grid-gutter-horizontal}) / 4) + #{$grid-gutter-horizontal}); }
+    .col-3-of-4 {
+        width: calc(3 * ((100% - 3 * #{$grid-gutter-horizontal}) / 4) + 2 * #{$grid-gutter-horizontal}); }
+}
